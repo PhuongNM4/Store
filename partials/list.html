@@ -1,0 +1,6 @@
+
+<div ng-repeat="b in blocks | orderByPriority | filter:query" class="form-row">
+    <a href="#/view/{{b.$id}}" ng-bind-template="{{b.title}}"></a>  <span bind-html-unsafe="b.tag | splitTags" class="tagContainer"></span>  <span ng-bind-template="{{b.time}}"></span>
+</div>
+
+

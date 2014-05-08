@@ -1,0 +1,30 @@
+<style>
+
+</style>
+
+<h1 ng-bind-template="{{block.title}}" ng-show="block.$remove"></h1>
+
+<form name="blockForm">
+    <span ng-show="block.$remove" class="form-row">
+        <span class="label-120">Edit Mode</span>
+        <input type="checkbox" ng-model="editMode" class="myCheckbox" spellcheck="false">
+    </span>
+    <span class="form-row">
+        <span class="label-120">Description</span>
+        <input type="text" ng-model="block.title" placeholder="Title" ng-disabled="!editMode" required focus-me="editMode" class="textbox" spellcheck="false" />
+    </span>
+    <span class="form-row">
+        <span class="label-120">Tags</span>
+        <span bind-html-unsafe="block.tag | splitTags" ng-show="!editMode"></span>
+        <input type="text" ng-model="block.tag" placeholder="Tags" class="textbox" ng-show="editMode" spellcheck="false" /><br />
+    </span>
+    <span class="form-row">
+        <div class="pull-right">
+            <a href="#/" class="btn" ng-show="editMode">Cancel</a>
+            <input type="button" ng-click="saveBlock()" ng-disabled="blockForm.$invalid" value="Save" ng-show="editMode" class="btn btn-primary" />
+            <button ng-click="destroy()" ng-show="block.$remove && editMode" class="btn btn-danger">Delete</button>
+        </div>
+    </span>
+    <pre ng-bind-template="{{block.content}}" ng-show="!editMode"></pre>
+    <textarea class="codeBlock" ng-model="block.content" placeholder="Content" ng-show="editMode" required spellcheck="false"></textarea>
+</form>
