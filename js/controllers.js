@@ -1,18 +1,18 @@
 
 angular.module('codeblockControllers', [])
 
-.controller('ListCTRL', function ($scope, CssDB) {
-    $scope.blocks = CssDB;
+.controller('ListCTRL', function ($scope, CodeblocksFactory, rootUrl) {
+    $scope.blocks = CodeblocksFactory.getData(rootUrl);
 })
 
 //CreateController
-.controller('CreateCTRL', function ($scope, $location, $timeout, CssDB) {
+.controller('CreateCTRL', function ($scope, $location, $timeout, CodeblocksFactory, rootUrl) {
     $scope.editMode = true;
 
     $scope.saveBlock = function () {
         $scope.block.time = GetDateTimeNow();
 
-        CssDB.$add($scope.block, function () {
+        CodeblocksFactory.getData(rootUrl).$add($scope.block, function () {
             $timeout(function () {
                 $location.path('/');
             });
@@ -21,9 +21,9 @@ angular.module('codeblockControllers', [])
 })
 
 //EditController
-.controller('ViewCTRL', function ($scope, $location, $routeParams, $firebase, cssBlockUrl) {
-    cssBlockUrl = cssBlockUrl + $routeParams.blockId;
-    $scope.block = $firebase(new Firebase(cssBlockUrl));
+.controller('ViewCTRL', function ($scope, $location, $routeParams, CodeblocksFactory, rootUrl) {
+    rootUrl = rootUrl + $routeParams.blockId;
+    $scope.block = CodeblocksFactory.getData(rootUrl);
 
     $scope.destroy = function () {
         $scope.block.$remove();
@@ -37,22 +37,3 @@ angular.module('codeblockControllers', [])
 
 });
 
-
-//angular.element(document).ready(function () {
-//    var offset = 200;
-//    var duration = 300;
-
-//    $(window).scroll(function () {
-//        if ($(this).scrollTop() > offset) {
-//            $('.back-to-top').fadeIn(duration);
-//        } else {
-//            $('.back-to-top').fadeOut(duration);
-//        }
-//    });
-
-//    jQuery('.back-to-top').click(function (event) {
-//        event.preventDefault();
-//        jQuery('html, body').animate({ scrollTop: 0 }, duration);
-//        return false;
-//    })
-//});
