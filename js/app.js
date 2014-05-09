@@ -1,14 +1,12 @@
 
 angular.module('codeblock', [
     'ngRoute',
-    //'cgBusy',
-    //'ngAnimate',
     'codeblockServices',
     'codeblockControllers',
     'codeblockDirectives',
     'codeblockFilters',
 ])
-.value('cssBlockUrl', 'https://fdn-freestore.firebaseio.com/Code%20Blocks/CSS/')
+.value('rootUrl', 'https://fdn-freestore.firebaseio.com/Code%20Blocks/CSS/')
 
 .config(function ($routeProvider) {
     $routeProvider.
